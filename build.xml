@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+
+<project name="randy" default="build">
+
+    <property name="project.name" value="${ant.project.name}" />
+    <property name="build.root.dir" value="." />
+    <property name="build.dir" value="${build.root.dir}/${project.name}"/>
+
+    <target name="init">
+        <mkdir dir="${build.dir}/classes"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac destdir="${build.dir}/classes" includes="**/*.java">
+            <src path="src"/>
+        </javac>
+    </target>
+
+    <target name="build" depends="compile">
+        <jar destfile="${build.dir}/${project.name}.jar" 
+             manifest="META-INF/manifest.mf">
+            <fileset dir="${build.dir}/classes">
+                <include name="net/ech/randy/**"/>
+            </fileset>
+        </jar>
+    </target>
+
+    <target name="run" depends="build">
+        <java jar="${build.dir}/${project.name}.jar" fork="true"/>
+    </target>
+
+    <target name="dist" depends="build, javadoc">
+        <zip destfile="${build.dir}/${project.name}.zip">
+            <fileset dir=".">
+                <exclude name="${project.name}/**"/>
+            </fileset>
+            <fileset dir="${build.dir}">
+                <exclude name="classes/**"/>
+            </fileset>
+        </zip>
+    </target>
+
+    <target name="javadoc">
+        <delete dir="${build.dir}/apidoc"/>
+        <mkdir dir="${build.dir}/apidoc"/>
+        <javadoc destdir="${build.dir}/apidoc" windowtitle="Randy API">
+            <packageset dir="src" defaultexcludes="yes">
+                <include name="net/ech/randy"/>
+                <include name="net/ech/xrandy"/>
+            </packageset>
+            <arg value="-quiet"/>
+        </javadoc>
+    </target>
+
+    <target name="clean" description="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+  
+</project>

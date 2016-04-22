@@ -1,0 +1,18 @@
+<body>
+<h1>RANDY</h1>
+<p>Solution to a programming problem posed by PROTEUS Technologies.</p>
+<p>RANDY demonstrates random number generation.  It comes with a GUI, but is better-looking on the inside.</p>
+<p><b>To run:</b></p>
+<p><pre>    java -jar randy.jar</pre></p>
+<p><p>To run,</b> specifying alternate random number generators:</p>
+<p><pre>    java -jar randy.jar net.ech.randy.KISSRandomCore</pre></p>
+<p><pre>    java -jar randy.jar net.ech.randy.LinearCongruentialRandomCore</pre></p>
+<p><b>To run,</b> specifying a user-defined random number generator:</p>
+<p><pre>    java -cp 'randy.jar;{myclasses}' net.ech.randy.Main {myRNG}</pre>
+<p>Where:</p>
+<ul>
+<li><tt>{myRNG}</tt> is the qualified classname of the random number generator,</li>
+<li><tt>{myclasses}</tt> is the CLASSPATH component where <tt>{myRNG}</tt> is found.</li>
+</ul>
+<p>A user-defined random number generator must implement the <tt>net.ech.randy.IRandomCore</tt> interface.</p>
+</body>
